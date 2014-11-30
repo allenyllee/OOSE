@@ -186,9 +186,112 @@ application.addWindowListener(
   
 各位注意到了嗎？即使 application 只想處理windowClosing而已，但因為它實作 WindowListener 就必須把所有的 event “照抄”一次(內容都是空的)。所以，在此例中，WindowAdapter 做為 application 物件與 WindowListener 的轉接器。
 
-### 習題：
+Adaptor 自我測驗
+===
 
-1. Java 過去的集合型態（collection）都實踐 Enumeration 的介面，但新版的則開始使用 Iterator  的介面，我們需要一個 Iterator 轉 Enumeration 的 Adaptor，請設計之。
-2. 說明 物件轉接器 和類別轉切器的差別
-3. 說明 Target, Adaptor, Adaptee 的關係
+基礎
+---
+
+(1) Adaptor 的目的
+
+1. 把兩個介面不相容的物件可以溝通合作
+2. 讓一個類別只能產生一個物件
+3. 讓一個物件可以有很多的觀者者，物件變動時，其觀察者物件可以跟著變動
+4. 提供一個可以修改介面的介面，讓物件可以溝通
+
+(2) 在 Adaptor 中，與 client 溝通的物件為
+
+1. Target
+2. Adaptee
+
+(3) Adaptor 運用的技巧為
+
+1. 讓 Target 包含一個 Adaptor 的物件，轉而呼叫 Adaptee 的方法
+2. 設計一個 Target 的子類別，Adaptor，把 client 呼叫的方法轉而呼叫 Adaptee 的方法
+3. 設計一個 Adaptor 類別，呼叫 Target 與  Adaptee，等於是作為兩者之間的中介，以降低耦合度
+
+(4) Adaptor 可分為 class adaptor 與 object adaptor。當 target 與 adaptee 都是類別（非介面）時，我們應該用哪一種？
+
+1. class adaptor
+2. object adaptor
+
+(5) 當我們想要把 A.m1() 介面轉成 B.op1() 介面，？為何
+
+``` 
+class AdaptorA2B extends B {
+   A a;
+   public Adaptor(A a) {
+      ?1
+   }
+   public void op1() {
+      ?2
+   }
+}   
+```
+
+
+
+進階
+---
+
+(1) 請設計一個 A 到 B, B 到 A 的雙向 Adaptor
+```
+interface A {
+   public void m1(); 
+}
+
+interface B {
+   public void op1();
+}   
+
+class AdaptorAB ?1 {
+   ?2
+
+
+
+
+   
+
+
+}
+
+```
+
+(2) VectorUtilities 內的 copy() 會透過 Copyable.isCopyable() 來檢查該物件是否可以被拷貝。Document 類別雖然沒有實作 Copyable 的介面，但有一個 功能相似的 isValid() 方法做檢驗。該如何設計一個 Adaptor 來協助 VectorUtilities.copy() 進行 Document 的拷貝？請應用 Adaptor 樣式。
+
+```
+
+
+
+
+
+```
+
+(3) Java 過去的集合型態（collection）都實踐 Enumeration 的介面，但新版的則開始使用 Iterator  的介面，我們需要一個 Enumeration  轉  Iterator 的 Adaptor，請設計之。(Target 為 Iterator)
+
+```
+interface Enumeration<E> {
+   public boolean hasMoreElement();
+   public E nextElement();
+}
+
+interface Iterator<E> {
+   public boolean hasNext();
+   public E next();
+}
+
+class AdaptorIE ? {
+   ?
+   
+
+
+
+}
+```
+
+
+
+程式
+---
+
 

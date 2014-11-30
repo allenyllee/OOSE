@@ -268,3 +268,159 @@ AbstractButton 內的 fireActionPerformed()相當於 Observable 內的notifyObse
 #### 一個沒有用樣式的程式
 
 （counter 的例子）
+
+
+Observer 自我測驗
+===
+
+基礎
+---
+
+(1) Observer 設計樣式主要有兩個物件：Subject 與 Observer: 
+
+1. 一個 subject，多個 observer
+2. 一個 observer 一個 subject  
+3. 一對一的關係 
+4. 多對多的關係
+
+(2) 關於 Observer 樣式，何者為真：
+
+1. Subject 變動時，Observer 會被通知 
+2. Observer 變動時，Subject 被通知 
+3. Observer 定時查詢 Subject 狀態 
+4. Subject 定期查詢 Observer 狀態
+
+(3) java API  中實踐 Subject 的類別為
+
+1. Object
+2. Subject
+3. Observable
+4. Observer
+
+(4) 請寫出 java.util.Observer 此介面 注意參數的正確。
+
+```
+interface Observer {
+   
+   
+}
+
+```
+
+
+(5) 請畫出 Observer 的架構
+
+```
+
+
+
+
+
+
+
+
+
+```
+
+(6) 應用 Observer 樣式時，擔任 Subject 的類別，當狀態改變時，要呼叫哪一個方法？
+```
+
+
+```
+
+(7) 以下 View1 是一個 Observer, ?1 和 ?2 為何
+```
+class View1 implements Observer {
+	public void update(?1 obs, ?2 obj) {
+		...
+	}
+}
+```
+(8) Stock 是一個 Subject, 價格改變時會通知所有的 observer, 以下 ? 為何
+```
+class Stock extends Observable {
+	public void increasePrice() { //will 
+		price++;
+		setChanged();
+		?
+	}
+}
+```
+
+進階
+---
+
+(1) 為何 Subject 可以通知所有不同的物件，又可以避免過高的耦合力？
+
+```
+
+
+```
+
+(2) 當 Subject 物件已經有必要的父類別時，無法在繼承 java.util.Observable, 該如何實踐 Observer 樣式？
+```
+
+
+
+
+```
+
+(3) 在透過委託來實踐 Observer 的方法中，為何 Subject 不直接委託給 Observable 物件，而是委託給 DelegatedObservable？
+```
+
+
+```
+
+(4) 同上，Subject 包含 DelegatedObserver 是屬於
+
+1. aggregation (弱包含，邏輯上的包含）
+2. containment （強包含，被包含者的生命週期由包含者決定）
+
+(5) 同上，為什麼？
+```
+
+
+```
+
+(6) Java 的 Swing 架構使用 Observer，其中 ActionListener 相當於 Observer 樣式中的？
+
+1. Subject
+2. Observer
+3. Concrete Observer
+4. Concrete Subject
+
+(7) 同上，像 JButton 這一類的元件，相當於 Observer 樣式的？
+
+1. Subject
+2. Observer
+3. Concrete Observer
+4. Concrete Subject
+
+(8) 如果我們不透過 java API 來實踐 Observer, 想要自己在 Stock 類別中實踐 Observable 的功能，該怎麼設計 addObserver(), notifyObserver() 等方法？資料結構該怎麼設計？
+
+```
+class Stock {
+	Vector observers;
+
+	public Stock() {
+		observers = new Vector();
+	}
+
+	addObserver(?) {
+		?
+	}
+
+	notifyObserver(?) {
+		?
+	}
+}	
+```
+
+程式
+---
+
+(1) 應用Observer 設計樣式，寫一個股票觀看的模擬系統
+
+* 透過亂數隨機的變動股價
+* 股價一變動所有的介面呈現都會跟著變動
+* 可能的介面：股價波動圖，股價變動差異圖，股價現價圖
