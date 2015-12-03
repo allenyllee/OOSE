@@ -1,0 +1,17 @@
+site_name: Djangae Documentation
+repo_url: https://github.com/potatolondon/djangae
+pages:
+- Home: index.md
+- Installation & Deployment: installation.md
+- The Database Backend: db_backend.md
+- Djangae Model Fields: fields.md
+- Local/remote management commands: sandbox.md
+- Contrib apps:
+  - Pagination: pagination.md
+  - Gauth: gauth.md
+  - Map Reduce: mappers.md
+  - Unique constraint tool: uniquetool.md
+  - Security: security.md
+  - Datastore eventual consistency: consistency.md
+- Contributing & Testing: contributing.md
+theme: readthedocs
